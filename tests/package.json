@@ -1,0 +1,84 @@
+{
+  "name": "claude-flow-game-tests",
+  "version": "1.0.0",
+  "description": "Comprehensive test suite for Claude Flow Game with TDD London School approach",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:verbose": "jest --verbose",
+    "test:unit": "jest tests/unit",
+    "test:integration": "jest tests/integration", 
+    "test:mocks": "jest tests/mocks",
+    "test:achievements": "jest tests/unit/achievements",
+    "test:easter-eggs": "jest tests/unit/easter-eggs",
+    "test:multiplayer": "jest tests/unit/multiplayer",
+    "test:neural": "jest tests/unit/neural",
+    "test:security": "jest tests/unit/security",
+    "test:swarm-commands": "jest tests/unit/swarm-commands",
+    "test:game-mechanics": "jest tests/unit/game-mechanics",
+    "test:tdd": "npm run test:unit -- --testNamePattern='TDD|London School'",
+    "test:witty": "npm run test -- --testNamePattern='witty|rUv|swarm'",
+    "lint": "eslint . --fix",
+    "coverage:html": "jest --coverage --coverageReporters=html",
+    "coverage:badge": "jest --coverage --coverageReporters=json-summary"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/jest": "^29.5.5",
+    "@types/node": "^20.8.0",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^14.5.1",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "ts-jest": "^29.1.1",
+    "typescript": "^5.2.2",
+    "eslint": "^8.50.0"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "jsdom",
+    "setupFilesAfterEnv": [
+      "<rootDir>/setup.ts"
+    ],
+    "moduleNameMapping": {
+      "^@/(.*)$": "<rootDir>/../claude-flow-ascension/src/$1",
+      "^@tests/(.*)$": "<rootDir>/$1",
+      "^@mocks/(.*)$": "<rootDir>/mocks/$1"
+    },
+    "collectCoverageFrom": [
+      "../claude-flow-ascension/src/**/*.{ts,tsx}",
+      "!../claude-flow-ascension/src/**/*.d.ts",
+      "!../claude-flow-ascension/src/main.tsx"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 90,
+        "functions": 90,
+        "lines": 90,
+        "statements": 90
+      }
+    },
+    "testMatch": [
+      "<rootDir>/**/*.test.{ts,tsx}",
+      "<rootDir>/**/*.spec.{ts,tsx}"
+    ],
+    "verbose": true,
+    "clearMocks": true,
+    "restoreMocks": true
+  },
+  "keywords": [
+    "claude-flow",
+    "game",
+    "testing",
+    "tdd",
+    "london-school",
+    "swarm",
+    "neural-patterns",
+    "multiplayer",
+    "easter-eggs"
+  ],
+  "author": "Claude Flow Game Team",
+  "license": "MIT"
+}

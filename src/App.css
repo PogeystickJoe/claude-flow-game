@@ -1,0 +1,359 @@
+/* Claude Flow: The Ascension - Game Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #0f0f23;
+  color: white;
+  overflow-x: hidden;
+}
+
+code {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono',
+    'Courier New', monospace;
+}
+
+.App {
+  min-height: 100vh;
+}
+
+/* Custom scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f2937;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #4b5563;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #6b7280;
+}
+
+/* Utility classes */
+.h-screen-minus-nav {
+  height: calc(100vh - 80px);
+}
+
+/* Game-specific animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.8);
+  }
+}
+
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.float {
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200px 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200px 100%;
+  animation: shimmer 2s infinite;
+}
+
+/* Achievement rarity styles */
+.achievement-common {
+  border-color: #6b7280;
+  background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+}
+
+.achievement-rare {
+  border-color: #3b82f6;
+  background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+}
+
+.achievement-epic {
+  border-color: #8b5cf6;
+  background: linear-gradient(135deg, #581c87 0%, #7c3aed 100%);
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+.achievement-legendary {
+  border-color: #f59e0b;
+  background: linear-gradient(135deg, #92400e 0%, #d97706 100%);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.4);
+}
+
+.achievement-ruv-tribute {
+  border-color: #ea580c;
+  background: linear-gradient(135deg, #c2410c 0%, #ea580c 50%, #dc2626 100%);
+  box-shadow: 0 0 25px rgba(234, 88, 12, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+.achievement-ruv-tribute::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(234, 88, 12, 0.1),
+    transparent
+  );
+  animation: shimmer 3s infinite;
+}
+
+/* Level progression styles */
+.level-progress {
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.level-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: shimmer 2s infinite;
+}
+
+/* Swarm visualization styles */
+.swarm-node-pulse {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Command sandbox styles */
+.command-input {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  background: #1f2937;
+  border: 2px solid #374151;
+  transition: all 0.2s ease;
+}
+
+.command-input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  outline: none;
+}
+
+.command-output {
+  font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Roboto Mono', monospace;
+  background: #111827;
+  border-left: 4px solid #10b981;
+  color: #10b981;
+}
+
+.command-error {
+  background: #7f1d1d;
+  border-left: 4px solid #ef4444;
+  color: #fca5a5;
+}
+
+/* Tutorial styles */
+.tutorial-highlight {
+  background: rgba(59, 130, 246, 0.1);
+  border: 2px dashed #3b82f6;
+  border-radius: 8px;
+  padding: 8px;
+  animation: pulse-glow 2s infinite;
+}
+
+/* Notification styles */
+.notification-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+
+.notification-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: all 300ms ease-out;
+}
+
+.notification-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.notification-exit-active {
+  opacity: 0;
+  transform: translateX(100%);
+  transition: all 200ms ease-in;
+}
+
+/* Particle effect styles */
+.particles-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Special effects for rUv tributes */
+.ruv-tribute-glow {
+  animation: ruv-glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes ruv-glow {
+  from {
+    text-shadow: 0 0 5px #ea580c, 0 0 10px #ea580c, 0 0 15px #ea580c;
+  }
+  to {
+    text-shadow: 0 0 10px #ea580c, 0 0 20px #ea580c, 0 0 30px #ea580c;
+  }
+}
+
+/* Loading animations */
+.loading-spinner {
+  border: 4px solid rgba(59, 130, 246, 0.3);
+  border-top: 4px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .achievement-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .swarm-controls {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .tutorial-overlay {
+    margin: 16px;
+    max-height: calc(100vh - 32px);
+  }
+}
+
+@media (max-width: 640px) {
+  .top-nav {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+  
+  .nav-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .xp-bar {
+    order: -1;
+    width: 100%;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .achievement-card {
+    border-width: 3px;
+  }
+  
+  .command-input {
+    border-width: 3px;
+  }
+  
+  .level-progress {
+    background: #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .particles-container {
+    display: none;
+  }
+}
+
+/* Dark mode specific styles */
+@media (prefers-color-scheme: dark) {
+  /* Already using dark theme by default */
+}
+
+/* Print styles */
+@media print {
+  .particles-container,
+  .notification-system,
+  .tutorial-overlay {
+    display: none !important;
+  }
+}
