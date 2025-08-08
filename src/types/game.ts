@@ -185,6 +185,8 @@ export interface GameState {
   sandbox: SandboxState;
   ui: UIState;
   settings: GameSettings;
+  claudeFlowVersion?: string;
+  discoveredFeatures?: string[];
 }
 
 export interface TutorialState {

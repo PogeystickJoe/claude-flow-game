@@ -1,0 +1,266 @@
+/* Claude Flow Update Dialogue Styles */
+
+.update-dialogue-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-out;
+}
+
+.update-dialogue-container {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+  border: 2px solid #8b5cf6;
+  border-radius: 16px;
+  padding: 32px;
+  max-width: 600px;
+  width: 90%;
+  box-shadow: 
+    0 0 50px rgba(139, 92, 246, 0.5),
+    0 0 100px rgba(139, 92, 246, 0.3),
+    inset 0 0 20px rgba(139, 92, 246, 0.1);
+  animation: slideUp 0.5s ease-out;
+}
+
+.update-dialogue-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.update-dialogue-icon {
+  font-size: 48px;
+  animation: pulse 2s infinite;
+}
+
+.update-dialogue-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #e0e7ff;
+  margin: 0;
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.8);
+}
+
+.update-dialogue-content {
+  color: #c7d2fe;
+}
+
+.update-dialogue-message {
+  font-size: 18px;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.update-dialogue-details {
+  font-size: 14px;
+  opacity: 0.8;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+.update-dialogue-progress {
+  height: 8px;
+  background: rgba(139, 92, 246, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 20px 0;
+}
+
+.update-dialogue-progress-bar {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.5s ease-out;
+  box-shadow: 0 0 10px currentColor;
+  animation: shimmer 2s infinite;
+}
+
+.update-dialogue-learning {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.neural-animation {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+  position: relative;
+}
+
+.neuron {
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(45deg, #8b5cf6, #a78bfa);
+  border-radius: 50%;
+  animation: neuronPulse 1.5s infinite;
+  box-shadow: 0 0 20px rgba(139, 92, 246, 0.8);
+}
+
+.neuron:nth-child(2) {
+  animation-delay: 0.5s;
+}
+
+.neuron:nth-child(3) {
+  animation-delay: 1s;
+}
+
+.synapse {
+  position: absolute;
+  height: 2px;
+  width: 60px;
+  background: linear-gradient(90deg, transparent, #8b5cf6, transparent);
+  top: 50%;
+  transform: translateY(-50%);
+  animation: synapseFlow 2s infinite;
+}
+
+.synapse:first-of-type {
+  left: 30px;
+}
+
+.synapse:last-of-type {
+  right: 30px;
+}
+
+.update-dialogue-features {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.update-dialogue-features h3 {
+  color: #e0e7ff;
+  margin-bottom: 16px;
+  font-size: 16px;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+}
+
+.feature-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.4);
+  border-radius: 8px;
+  font-size: 14px;
+  animation: featureAppear 0.5s ease-out;
+}
+
+.feature-icon {
+  font-size: 16px;
+}
+
+.feature-name {
+  color: #e0e7ff;
+  font-weight: 500;
+}
+
+.update-dialogue-retry {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  border: none;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.update-dialogue-retry:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(239, 68, 68, 0.5);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.8;
+  }
+}
+
+@keyframes neuronPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+@keyframes synapseFlow {
+  0% {
+    opacity: 0;
+    transform: translateY(-50%) scaleX(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateY(-50%) scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50%) scaleX(0);
+  }
+}
+
+@keyframes featureAppear {
+  from {
+    transform: scale(0);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}

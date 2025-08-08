@@ -1,0 +1,817 @@
+/**
+ * Styles for Wiki-Based Challenge Components
+ * Fun, engaging, and social media ready designs
+ */
+
+/* Challenge Container Styles */
+.challenge-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+}
+
+.challenge-header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.challenge-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(45deg, #00d4ff, #ff00ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.challenge-type {
+  display: inline-block;
+  margin-left: 15px;
+  padding: 5px 12px;
+  background: rgba(0, 212, 255, 0.2);
+  border: 1px solid #00d4ff;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.challenge-meta {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.challenge-meta span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.difficulty {
+  color: #ffd700;
+}
+
+.xp-reward {
+  color: #00ff88;
+}
+
+.social-points {
+  color: #ff6b6b;
+}
+
+.time-left {
+  color: #ffaa00;
+  animation: pulse 1s infinite;
+}
+
+.time-left.urgent {
+  color: #ff4757;
+  animation: urgentPulse 0.5s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes urgentPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+
+.challenge-description {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Progress Bars */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #00d4ff, #ff00ff);
+  border-radius: 10px;
+  transition: width 0.3s ease;
+  animation: progressGlow 2s infinite;
+}
+
+@keyframes progressGlow {
+  0%, 100% { box-shadow: 0 0 5px rgba(0, 212, 255, 0.5); }
+  50% { box-shadow: 0 0 15px rgba(0, 212, 255, 0.8); }
+}
+
+/* Wiki Warrior Styles */
+.wiki-warrior-ui {
+  padding: 20px;
+}
+
+.question-progress {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.question-card {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 30px;
+  margin-bottom: 20px;
+}
+
+.question-text {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.question-options {
+  display: grid;
+  gap: 15px;
+  margin-bottom: 25px;
+}
+
+.option-button {
+  padding: 15px 20px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  color: #ffffff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.option-button:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: #00d4ff;
+  transform: translateY(-2px);
+}
+
+.option-button.selected {
+  border-color: #00d4ff;
+  background: rgba(0, 212, 255, 0.2);
+}
+
+.option-button.correct {
+  border-color: #00ff88;
+  background: rgba(0, 255, 136, 0.2);
+}
+
+.option-button.incorrect {
+  border-color: #ff4757;
+  background: rgba(255, 71, 87, 0.2);
+}
+
+.explanation {
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid #00ff88;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.question-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* Command Master Styles */
+.command-master-ui {
+  padding: 20px;
+}
+
+.command-progress {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.terminal-container {
+  background: #000000;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.terminal-header {
+  background: #333333;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.terminal-title {
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.terminal-header::before {
+  content: '';
+  display: flex;
+  gap: 5px;
+}
+
+.terminal-header::before {
+  content: '🔴 🟡 🟢';
+}
+
+.terminal-body {
+  padding: 20px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.9rem;
+  min-height: 200px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.terminal-output {
+  margin-bottom: 15px;
+}
+
+.prompt {
+  color: #00ff88;
+  font-weight: 600;
+}
+
+.output {
+  color: #ffffff;
+  margin-top: 5px;
+  padding-left: 20px;
+}
+
+.terminal-input-line {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+}
+
+.terminal-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: inherit;
+  outline: none;
+  margin-left: 10px;
+}
+
+.command-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+/* Bug Hunter Styles */
+.bug-hunter-ui {
+  padding: 20px;
+}
+
+.bug-scenario {
+  background: rgba(255, 71, 87, 0.1);
+  border: 1px solid #ff4757;
+  border-radius: 15px;
+  padding: 25px;
+}
+
+.error-message {
+  background: rgba(255, 0, 0, 0.2);
+  border: 1px solid #ff4757;
+  border-radius: 5px;
+  padding: 15px;
+  margin: 15px 0;
+  font-family: 'Monaco', monospace;
+  font-size: 0.9rem;
+}
+
+.symptoms-section {
+  margin: 20px 0;
+}
+
+.symptoms-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.symptoms-section li {
+  padding: 8px 0;
+  padding-left: 25px;
+  position: relative;
+}
+
+.symptoms-section li::before {
+  content: '⚠️';
+  position: absolute;
+  left: 0;
+}
+
+.possible-causes {
+  margin: 25px 0;
+}
+
+.cause-option {
+  display: block;
+  padding: 12px 15px;
+  margin: 10px 0;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.cause-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.cause-option input {
+  margin-right: 10px;
+}
+
+.solution-textarea {
+  width: 100%;
+  min-height: 120px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  padding: 15px;
+  font-size: 1rem;
+  resize: vertical;
+}
+
+.troubleshooting-steps {
+  background: rgba(0, 212, 255, 0.1);
+  border: 1px solid #00d4ff;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+.bug-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+/* Speed Run Styles */
+.speed-run-ui {
+  padding: 20px;
+}
+
+.speed-run-header {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.timer {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #00d4ff;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+}
+
+.target-times, .world-record {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.step-progress {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.current-step {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.current-step h3 {
+  font-size: 1.4rem;
+  margin-bottom: 15px;
+}
+
+.step-command {
+  display: block;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px;
+  border-radius: 8px;
+  font-family: 'Monaco', monospace;
+  margin: 15px 0;
+}
+
+.step-points {
+  color: #ffd700;
+  font-weight: 600;
+}
+
+.completed-steps {
+  margin-bottom: 25px;
+}
+
+.completed-step {
+  padding: 10px 15px;
+  background: rgba(0, 255, 136, 0.1);
+  border: 1px solid #00ff88;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.execute-step-button {
+  width: 100%;
+  padding: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background: linear-gradient(45deg, #00d4ff, #ff00ff);
+  border: none;
+  border-radius: 10px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.execute-step-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
+}
+
+.execute-step-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Easter Egg Hunt Styles */
+.easter-egg-hunt-ui {
+  padding: 20px;
+}
+
+.hunt-progress {
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.search-area {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.search-button {
+  padding: 15px 25px;
+  background: #00d4ff;
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.search-button:hover {
+  background: #00b8e6;
+  transform: translateY(-2px);
+}
+
+.found-eggs {
+  display: grid;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.found-egg {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 15px;
+  border: 2px solid transparent;
+}
+
+.found-egg.common { border-color: #cccccc; }
+.found-egg.rare { border-color: #00d4ff; }
+.found-egg.legendary { border-color: #ffd700; }
+.found-egg.mythic { border-color: #ff00ff; }
+
+.egg-icon {
+  font-size: 3rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.egg-details h4 {
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.egg-rarity {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.hunt-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.current-hint {
+  background: rgba(255, 170, 0, 0.1);
+  border: 1px solid #ffaa00;
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+/* Meme Lord Styles */
+.meme-lord-ui {
+  padding: 20px;
+}
+
+.template-selector h3 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.template-options {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.template-option {
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 2px solid transparent;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: left;
+}
+
+.template-option:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: #00d4ff;
+}
+
+.template-option.selected {
+  border-color: #ff00ff;
+  background: rgba(255, 0, 255, 0.1);
+}
+
+.template-name {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.template-popularity {
+  font-size: 0.9rem;
+  opacity: 0.8;
+}
+
+.meme-creator {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.meme-preview {
+  background: #ffffff;
+  color: #000000;
+  border-radius: 10px;
+  padding: 20px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meme-content {
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.5;
+  white-space: pre-line;
+}
+
+.placeholder-inputs {
+  display: grid;
+  gap: 15px;
+}
+
+.placeholder-input label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.placeholder-input input {
+  width: 100%;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.meme-actions {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.meme-stats {
+  display: flex;
+  justify-content: space-around;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-bottom: 5px;
+}
+
+.stat-value {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #00d4ff;
+}
+
+/* Button Styles */
+.hint-button, .next-button, .submit-button, .complete-button, .share-button, .execute-button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hint-button {
+  background: rgba(255, 170, 0, 0.2);
+  border: 1px solid #ffaa00;
+  color: #ffaa00;
+}
+
+.hint-button:hover:not(:disabled) {
+  background: rgba(255, 170, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.next-button, .execute-button {
+  background: #00d4ff;
+  color: #ffffff;
+}
+
+.next-button:hover:not(:disabled), .execute-button:hover:not(:disabled) {
+  background: #00b8e6;
+  transform: translateY(-2px);
+}
+
+.submit-button, .complete-button {
+  background: #00ff88;
+  color: #000000;
+}
+
+.submit-button:hover:not(:disabled), .complete-button:hover:not(:disabled) {
+  background: #00e67a;
+  transform: translateY(-2px);
+}
+
+.share-button {
+  background: #ff6b6b;
+  color: #ffffff;
+}
+
+.share-button:hover:not(:disabled) {
+  background: #ff5252;
+  transform: translateY(-2px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .challenge-container {
+    padding: 15px;
+    margin: 10px;
+  }
+  
+  .challenge-meta {
+    gap: 10px;
+  }
+  
+  .challenge-meta span {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+  }
+  
+  .meme-creator {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  
+  .speed-run-header {
+    gap: 15px;
+  }
+  
+  .timer {
+    font-size: 1.5rem;
+  }
+  
+  .command-actions, .bug-actions, .hunt-actions, .meme-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .search-area {
+    flex-direction: column;
+  }
+}
