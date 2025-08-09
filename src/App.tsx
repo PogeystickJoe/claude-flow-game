@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useGameStore } from './stores/gameStore';
 import GameUI from './components/GameUI';
+import { UpdateDialogue } from './components/UpdateDialogue';
+import { autoUpdater } from './systems/autoUpdateClient';
 import './App.css';
 
 // Loading screen component
@@ -74,8 +76,25 @@ const App: React.FC = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        // Simulate loading time for dramatic effect
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        // First, check and update Claude Flow to latest version
+        await autoUpdater.initialize();
+        
+        // Wait for update to complete
+        await new Promise(resolve => {
+          const checkReady = () => {
+            autoUpdater.once('dialogue', (dialogue) => {
+              if (dialogue.phase === 'ready' || dialogue.phase === 'error') {
+                resolve(undefined);
+              } else {
+                setTimeout(checkReady, 100);
+              }
+            });
+          };
+          checkReady();
+          
+          // Timeout after 10 seconds
+          setTimeout(() => resolve(undefined), 10000);
+        });
         
         // Initialize the game store
         initializeGame();
@@ -98,6 +117,7 @@ const App: React.FC = () => {
   return (
     <GameErrorBoundary>
       <div className="App">
+        <UpdateDialogue />
         <GameUI />
       </div>
     </GameErrorBoundary>

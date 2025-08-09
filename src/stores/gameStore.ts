@@ -26,6 +26,10 @@ interface GameStore extends GameState {
   // Easter Egg System
   checkEasterEgg: (input: string) => void;
   
+  // Auto-Update System
+  integrateNewFeatures: (features: string[]) => void;
+  updateClaudeFlowVersion: (version: string) => void;
+  
   // Computed Values
   getUnlockedAchievements: () => Achievement[];
   getProgressToNextLevel: () => number;
@@ -48,6 +52,8 @@ const createInitialPlayer = (): Player => ({
 const initialState: Omit<GameState, keyof GameStore> = {
   player: createInitialPlayer(),
   achievements: achievementsData,
+  claudeFlowVersion: 'unknown',
+  discoveredFeatures: [],
   levels: levelsData,
   currentLevel: 1,
   swarm: null,
