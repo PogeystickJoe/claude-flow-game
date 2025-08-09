@@ -4,7 +4,49 @@
  * and learns new features dynamically
  */
 
-import { EventEmitter } from 'events';
+// Browser-compatible EventEmitter implementation
+class EventEmitter {
+  private events: Map<string, Set<Function>> = new Map();
+
+  on(event: string, listener: Function): this {
+    if (!this.events.has(event)) {
+      this.events.set(event, new Set());
+    }
+    this.events.get(event)!.add(listener);
+    return this;
+  }
+
+  off(event: string, listener: Function): this {
+    const listeners = this.events.get(event);
+    if (listeners) {
+      listeners.delete(listener);
+    }
+    return this;
+  }
+
+  emit(event: string, ...args: any[]): boolean {
+    const listeners = this.events.get(event);
+    if (!listeners || listeners.size === 0) {
+      return false;
+    }
+    listeners.forEach(listener => {
+      try {
+        listener(...args);
+      } catch (error) {
+        console.error(`Error in event listener for ${event}:`, error);
+      }
+    });
+    return true;
+  }
+
+  once(event: string, listener: Function): this {
+    const onceWrapper = (...args: any[]) => {
+      listener(...args);
+      this.off(event, onceWrapper);
+    };
+    return this.on(event, onceWrapper);
+  }
+}
 
 // Browser-safe mock for child_process
 const execAsync = async (command: string): Promise<{ stdout: string; stderr: string }> => {
