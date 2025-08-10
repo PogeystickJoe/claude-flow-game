@@ -17,6 +17,7 @@ import SwarmVisualization from './SwarmVisualization';
 import CommandSandbox from './CommandSandbox';
 import AchievementPanel from './AchievementPanel';
 import TutorialOverlay from './TutorialOverlay';
+import WikiTutorialHub from './WikiTutorialHub';
 import ParticleEffects from './ParticleEffects';
 import NotificationSystem from './NotificationSystem';
 
@@ -355,6 +356,11 @@ export const GameUI: React.FC = () => {
                 <p className="text-gray-400">Settings panel coming soon...</p>
               </div>
             </div>
+          </div>
+        )}
+        {ui.activePanel === 'wiki' && (
+          <div className="p-6">
+            <WikiTutorialHub />
           </div>
         )}
       </main>
