@@ -187,6 +187,18 @@ export interface GameState {
   settings: GameSettings;
   claudeFlowVersion?: string;
   discoveredFeatures?: string[];
+  wikiProgress: WikiTutorialProgress;
+}
+
+export interface WikiTutorialProgress {
+  completedModules: string[];
+  completedChallenges: string[];
+  moduleProgress: Map<string, number>;
+  challengeAttempts: Map<string, number>;
+  totalXpEarned: number;
+  currentStreak: number;
+  bestScores: Map<string, number>;
+  timeSpent: Map<string, number>;
 }
 
 export interface TutorialState {
@@ -302,4 +314,8 @@ export type GameEventType =
   | 'EASTER_EGG_FOUND'
   | 'TUTORIAL_STARTED'
   | 'TUTORIAL_COMPLETED'
-  | 'CHALLENGE_COMPLETED';
+  | 'CHALLENGE_COMPLETED'
+  | 'WIKI_MODULE_STARTED'
+  | 'WIKI_MODULE_COMPLETED'
+  | 'WIKI_CHALLENGE_STARTED'
+  | 'WIKI_CHALLENGE_COMPLETED';

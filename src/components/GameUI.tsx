@@ -21,7 +21,7 @@ import NotificationSystem from './NotificationSystem';
 
 // Top Navigation Bar
 const TopNavBar: React.FC = () => {
-  const { player, ui, setActivePanel, getProgressToNextLevel } = useGameStore();
+  const { player, ui, setActivePanel, getProgressToNextLevel, wikiProgress } = useGameStore();
   const progressToNext = getProgressToNextLevel();
 
   return (
@@ -68,6 +68,11 @@ const TopNavBar: React.FC = () => {
             { id: 'sandbox', label: 'Sandbox', icon: Terminal },
             { id: 'achievements', label: 'Achievements', icon: Trophy },
             { id: 'tutorial', label: 'Tutorial', icon: Book },
+            { 
+              id: 'wiki', 
+              label: `Wiki Tutorial${wikiProgress?.completedModules?.length ? ` (${wikiProgress.completedModules.length})` : ''}`, 
+              icon: BookOpen 
+            },
             { id: 'settings', label: 'Settings', icon: Settings },
           ].map((tab) => (
             <button
@@ -78,9 +83,13 @@ const TopNavBar: React.FC = () => {
                   ? 'bg-blue-600 text-white'
                   : 'text-gray-400 hover:text-white hover:bg-gray-800'
               }`}
+              title={tab.id === 'wiki' ? `Master 64 agents & 87 MCP tools - ${wikiProgress?.completedModules?.length || 0} modules completed` : ''}
             >
               <tab.icon className="w-4 h-4" />
               <span className="font-medium">{tab.label}</span>
+              {tab.id === 'wiki' && wikiProgress?.completedModules?.length > 0 && (
+                <span className="inline-block w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+              )}
             </button>
           ))}
         </nav>
@@ -183,7 +192,7 @@ const RecentAchievements: React.FC = () => {
 
 // Game Dashboard (Main panel when no specific panel is active)
 const GameDashboard: React.FC = () => {
-  const { player, swarm, tutorial } = useGameStore();
+  const { player, swarm, tutorial, wikiProgress } = useGameStore();
   
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 p-6">
@@ -234,6 +243,34 @@ const GameDashboard: React.FC = () => {
       {/* Sidebar */}
       <div className="space-y-6">
         <QuickStatsPanel />
+        
+        {/* Wiki Tutorial Quick Access */}
+        <div className="bg-gray-800 rounded-lg p-4">
+          <h3 className="font-semibold text-white mb-3 flex items-center">
+            <BookOpen className="w-4 h-4 mr-2 text-purple-500" />
+            Wiki Tutorial Hub
+          </h3>
+          <div className="space-y-2">
+            <button
+              onClick={() => useGameStore.getState().setActivePanel('wiki')}
+              className="w-full bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center justify-center space-x-2"
+            >
+              <BookOpen className="w-4 h-4" />
+              <span>Access Full Hub</span>
+            </button>
+            <div className="text-xs text-gray-400 text-center space-y-1">
+              <p>Master all 64 agents & 87 MCP tools</p>
+              <div className="flex justify-between">
+                <span>{wikiProgress?.completedModules?.length || 0} modules</span>
+                <span>{wikiProgress?.completedChallenges?.length || 0} challenges</span>
+              </div>
+              {wikiProgress?.currentStreak > 0 && (
+                <p className="text-yellow-400">🔥 {wikiProgress.currentStreak} day streak!</p>
+              )}
+            </div>
+          </div>
+        </div>
+        
         <RecentAchievements />
         
         {/* Level Progress */}

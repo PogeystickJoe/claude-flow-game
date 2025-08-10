@@ -116,7 +116,7 @@ const AchievementCard: React.FC<AchievementCardProps> = ({ achievement, onClick 
           <div className="flex items-center space-x-2">
             {isCompleted && achievement.unlockedAt && (
               <span className="text-green-400">
-                {achievement.unlockedAt.toLocaleDateString()}
+                {new Date(achievement.unlockedAt).toLocaleDateString()}
               </span>
             )}
             <span className="text-yellow-400 font-medium">

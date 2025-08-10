@@ -1,13 +1,22 @@
 /**
- * Wiki-Based Game Challenges for Claude Flow: The Ascension
+ * Comprehensive Wiki-Based Challenge System for Claude Flow: The Ascension
  * 
- * Six entertaining challenge types based on Claude Flow wiki content:
- * 1. Wiki Warrior - Trivia mastery
- * 2. Command Master - Practical execution
- * 3. Bug Hunter - Troubleshooting skills
- * 4. Speed Run - Quick start mastery
- * 5. Easter Egg Hunt - Hidden reference discovery
- * 6. Meme Lord - Viral content creation
+ * Complete challenge system covering ALL aspects of Claude Flow:
+ * - 64 Agent mastery challenges
+ * - 87 MCP tool tutorials and validation
+ * - SPARC methodology training
+ * - Neural network simulations
+ * - Performance benchmarking
+ * - GitHub integration workflows
+ * - Hook system automation
+ * 
+ * Six main challenge categories:
+ * 1. Wiki Warrior - Knowledge mastery across all topics
+ * 2. Command Master - Practical MCP tool execution
+ * 3. Bug Hunter - Advanced troubleshooting scenarios
+ * 4. Speed Run - Efficiency and optimization challenges
+ * 5. Easter Egg Hunt - Hidden features and references
+ * 6. Meme Lord - Creative content and community engagement
  */
 
 export interface WikiChallenge {
@@ -665,22 +674,349 @@ export const wikiChallenges: WikiChallenge[] = [
   }
 ];
 
+// Comprehensive Agent Mastery Challenges
+export const agentMasteryChallenges: WikiChallenge[] = [
+  {
+    id: 'agent-core-dev-master',
+    type: 'command-master',
+    name: 'Core Development Team Builder',
+    description: 'Master all 5 core development agents and create an optimal development team',
+    difficulty: 3,
+    category: 'practical',
+    xpReward: 500,
+    socialPoints: 200,
+    timeLimit: 600,
+    requirements: ['Complete basic swarm setup'],
+    hints: [
+      'Each core development agent has unique specializations',
+      'Consider the complete development lifecycle',
+      'Test agent coordination and communication'
+    ],
+    solution: {
+      requiredAgents: ['coder', 'reviewer', 'tester', 'planner', 'researcher'],
+      tasks: [
+        'Spawn all 5 core development agents',
+        'Assign a complex development task requiring all specializations',
+        'Demonstrate effective agent coordination',
+        'Achieve >90% task completion quality'
+      ],
+      validation: (result: any) => {
+        return result.agentsSpawned >= 5 && 
+               result.taskQuality >= 90 && 
+               result.coordinationEfficiency >= 80;
+      }
+    },
+    socialShareTemplate: {
+      title: 'Core Development Master!',
+      message: 'Mastered all 5 core Claude Flow development agents! 🚀 Ready to build anything!',
+      hashtags: ['#ClaudeFlow', '#AgentMastery', '#Development', '#TeamBuilder'],
+      template: 'AGENT MASTERY ACHIEVED! 🤖\n\nCore Dev Team: {AGENTS}\nTask Quality: {QUALITY}%\nCoordination: {EFFICIENCY}%\n\n#ClaudeFlow #AgentMaster'
+    },
+    unlockLevel: 3
+  },
+  {
+    id: 'agent-swarm-coord-expert',
+    type: 'command-master',
+    name: 'Swarm Coordination Expert',
+    description: 'Master advanced swarm coordination with hierarchical and mesh topologies',
+    difficulty: 4,
+    category: 'practical',
+    xpReward: 750,
+    socialPoints: 300,
+    timeLimit: 900,
+    requirements: ['Agent Core Dev Master', 'Level 5+'],
+    hints: [
+      'Hierarchical topology works best for large structured teams',
+      'Mesh topology excels at collaborative creative work',
+      'Monitor coordination efficiency and resource utilization'
+    ],
+    solution: {
+      challenges: [
+        'Create hierarchical swarm with 15+ agents across 3 levels',
+        'Create mesh swarm optimized for creative collaboration',
+        'Demonstrate topology switching based on task requirements',
+        'Achieve >85% efficiency in both topologies'
+      ]
+    },
+    socialShareTemplate: {
+      title: 'Swarm Coordination Master!',
+      message: 'Mastered advanced swarm topologies! Hierarchical AND mesh coordination expert! 🕸️⚡',
+      hashtags: ['#ClaudeFlow', '#SwarmCoordination', '#Topology', '#ScalableAI'],
+      template: 'SWARM MASTER UNLOCKED! 🕸️\n\nHierarchical: {HIER_EFFICIENCY}%\nMesh: {MESH_EFFICIENCY}%\nAgents Managed: {TOTAL_AGENTS}\n\n#ClaudeFlow #SwarmMaster'
+    },
+    unlockLevel: 5
+  }
+];
+
+// MCP Tool Mastery Challenges
+export const mcpToolChallenges: WikiChallenge[] = [
+  {
+    id: 'mcp-coordination-master',
+    type: 'command-master',
+    name: 'MCP Coordination Tools Master',
+    description: 'Master all coordination MCP tools: swarm_init, agent_spawn, task_orchestrate',
+    difficulty: 3,
+    category: 'practical',
+    xpReward: 400,
+    socialPoints: 150,
+    timeLimit: 450,
+    requirements: ['Basic MCP understanding'],
+    hints: [
+      'Practice with different topology types',
+      'Experiment with various agent combinations',
+      'Test different orchestration strategies'
+    ],
+    solution: {
+      tools: ['swarm_init', 'agent_spawn', 'task_orchestrate'],
+      proficiency: {
+        'swarm_init': 'Initialize all 4 topology types successfully',
+        'agent_spawn': 'Spawn agents from at least 6 different categories',
+        'task_orchestrate': 'Use all 4 orchestration strategies effectively'
+      }
+    },
+    socialShareTemplate: {
+      title: 'MCP Coordination Master!',
+      message: 'Mastered all MCP coordination tools! Swarm orchestration expert! 🎯',
+      hashtags: ['#ClaudeFlow', '#MCP', '#Coordination', '#ToolMastery'],
+      template: 'MCP MASTERY UNLOCKED! 🎯\n\nTools Mastered: {TOOL_COUNT}\nSuccess Rate: {SUCCESS_RATE}%\nTasks Orchestrated: {TASKS}\n\n#ClaudeFlow #MCPMaster'
+    },
+    unlockLevel: 2
+  },
+  {
+    id: 'mcp-monitoring-expert',
+    type: 'command-master',
+    name: 'MCP Monitoring Expert',
+    description: 'Master comprehensive system monitoring with all MCP monitoring tools',
+    difficulty: 4,
+    category: 'practical',
+    xpReward: 600,
+    socialPoints: 200,
+    timeLimit: 600,
+    requirements: ['MCP Coordination Master', 'Understanding of system metrics'],
+    hints: [
+      'Learn to interpret swarm status and health metrics',
+      'Practice identifying performance bottlenecks',
+      'Master agent performance analysis'
+    ],
+    solution: {
+      monitoring_skills: [
+        'Real-time swarm health monitoring',
+        'Agent performance optimization',
+        'Task completion tracking',
+        'Resource utilization analysis'
+      ],
+      success_criteria: {
+        'monitoring_accuracy': 90,
+        'issue_detection_time': 30, // seconds
+        'optimization_improvement': 25 // percent
+      }
+    },
+    socialShareTemplate: {
+      title: 'Monitoring Master!',
+      message: 'Achieved expert-level system monitoring! No performance issue escapes my watch! 📊',
+      hashtags: ['#ClaudeFlow', '#Monitoring', '#Performance', '#SystemExpert'],
+      template: 'MONITORING EXPERT! 📊\n\nDetection Speed: {DETECTION_TIME}s\nAccuracy: {ACCURACY}%\nOptimization: +{IMPROVEMENT}%\n\n#ClaudeFlow #MonitoringMaster'
+    },
+    unlockLevel: 4
+  }
+];
+
+// SPARC Methodology Challenges
+export const sparcChallenges: WikiChallenge[] = [
+  {
+    id: 'sparc-complete-workflow',
+    type: 'wiki-warrior',
+    name: 'SPARC Complete Workflow Master',
+    description: 'Successfully complete a full SPARC workflow from Specification to Completion',
+    difficulty: 5,
+    category: 'knowledge',
+    xpReward: 1000,
+    socialPoints: 400,
+    timeLimit: 1800, // 30 minutes
+    requirements: ['Understanding of all SPARC phases', 'Project management basics'],
+    hints: [
+      'Each phase must be completed before moving to the next',
+      'Quality gates ensure deliverable completeness',
+      'Documentation is crucial for traceability'
+    ],
+    solution: {
+      phases: {
+        'specification': {
+          deliverables: ['requirements-document', 'acceptance-criteria', 'constraints'],
+          quality_gate: 'Stakeholder approval',
+          time_allocation: '15%'
+        },
+        'pseudocode': {
+          deliverables: ['algorithm-design', 'logic-flows', 'error-handling'],
+          quality_gate: 'Technical review',
+          time_allocation: '15%'
+        },
+        'architecture': {
+          deliverables: ['system-design', 'component-specs', 'integration-plan'],
+          quality_gate: 'Architecture review',
+          time_allocation: '20%'
+        },
+        'refinement': {
+          deliverables: ['tested-implementation', 'quality-metrics', 'user-validation'],
+          quality_gate: 'Acceptance criteria met',
+          time_allocation: '40%'
+        },
+        'completion': {
+          deliverables: ['production-deployment', 'monitoring', 'documentation'],
+          quality_gate: 'Go-live readiness',
+          time_allocation: '10%'
+        }
+      }
+    },
+    socialShareTemplate: {
+      title: 'SPARC Methodology Master!',
+      message: 'Completed full SPARC workflow! From Specification to Completion with excellence! 🎯',
+      hashtags: ['#ClaudeFlow', '#SPARC', '#Methodology', '#SystemDevelopment'],
+      template: 'SPARC MASTER ACHIEVED! 🎯\n\nPhases: 5/5 ✅\nQuality Gates: {GATES_PASSED}\nDelivery Time: {PROJECT_TIME}\n\n#ClaudeFlow #SPARCMaster'
+    },
+    unlockLevel: 6
+  }
+];
+
+// Neural Network Training Challenges
+export const neuralChallenges: WikiChallenge[] = [
+  {
+    id: 'neural-pattern-recognition',
+    type: 'wiki-warrior',
+    name: 'Neural Pattern Recognition Master',
+    description: 'Train neural models to recognize coordination patterns with >90% accuracy',
+    difficulty: 4,
+    category: 'knowledge',
+    xpReward: 800,
+    socialPoints: 250,
+    timeLimit: 900,
+    requirements: ['Basic machine learning knowledge', 'Neural features unlocked'],
+    hints: [
+      'Use diverse training data for better generalization',
+      'Monitor for overfitting with validation sets',
+      'Experiment with different architectures'
+    ],
+    solution: {
+      neural_objectives: [
+        'Pattern recognition accuracy >90%',
+        'Training time <10 minutes',
+        'Model size <50MB',
+        'Inference time <100ms'
+      ]
+    },
+    socialShareTemplate: {
+      title: 'Neural Network Master!',
+      message: 'Achieved >90% accuracy in AI coordination pattern recognition! 🧠⚡',
+      hashtags: ['#ClaudeFlow', '#MachineLearning', '#NeuralNetworks', '#AICoordination'],
+      template: 'NEURAL MASTER! 🧠\n\nAccuracy: {ACCURACY}%\nTraining Time: {TRAIN_TIME}m\nInference: {INFERENCE_TIME}ms\n\n#ClaudeFlow #NeuralMaster'
+    },
+    unlockLevel: 8
+  }
+];
+
+// Performance Benchmarking Challenges
+export const performanceChallenges: WikiChallenge[] = [
+  {
+    id: 'performance-optimization-expert',
+    type: 'speed-run',
+    name: 'Performance Optimization Expert',
+    description: 'Achieve 2x performance improvement through systematic optimization',
+    difficulty: 5,
+    category: 'speed',
+    xpReward: 1200,
+    socialPoints: 500,
+    timeLimit: 1200,
+    requirements: ['Advanced system knowledge', 'Monitoring expertise'],
+    hints: [
+      'Start with bottleneck identification',
+      'Apply optimization incrementally',
+      'Validate improvements with benchmarks'
+    ],
+    solution: {
+      optimization_targets: {
+        'throughput': { baseline: 10, target: 20, unit: 'ops/sec' },
+        'latency': { baseline: 500, target: 250, unit: 'ms' },
+        'resource_usage': { baseline: 80, target: 60, unit: 'percent' }
+      }
+    },
+    socialShareTemplate: {
+      title: 'Performance Optimization Master!',
+      message: 'Achieved 2x performance improvement! System optimization expert! 🚀',
+      hashtags: ['#ClaudeFlow', '#Performance', '#Optimization', '#SystemTuning'],
+      template: 'PERFORMANCE MASTER! 🚀\n\nThroughput: +{THROUGHPUT_GAIN}%\nLatency: -{LATENCY_REDUCTION}%\nResource: -{RESOURCE_SAVINGS}%\n\n#ClaudeFlow #PerformanceMaster'
+    },
+    unlockLevel: 7
+  }
+];
+
+// Advanced Integration Challenges
+export const integrationChallenges: WikiChallenge[] = [
+  {
+    id: 'github-automation-master',
+    type: 'command-master',
+    name: 'GitHub Automation Master',
+    description: 'Create comprehensive GitHub workflow automation with Claude Flow',
+    difficulty: 4,
+    category: 'practical',
+    xpReward: 900,
+    socialPoints: 350,
+    timeLimit: 1200,
+    requirements: ['GitHub integration knowledge', 'Workflow automation understanding'],
+    hints: [
+      'Combine multiple GitHub tools for complete automation',
+      'Test workflows with different repository scenarios',
+      'Include security and quality checks'
+    ],
+    solution: {
+      automation_features: [
+        'Automated PR review and approval',
+        'Issue triage and labeling',
+        'Release coordination across repos',
+        'Security scanning integration'
+      ]
+    },
+    socialShareTemplate: {
+      title: 'GitHub Automation Master!',
+      message: 'Mastered GitHub automation with Claude Flow! Repository management on autopilot! 🔄',
+      hashtags: ['#ClaudeFlow', '#GitHub', '#Automation', '#DevOps'],
+      template: 'GITHUB AUTOMATION MASTER! 🔄\n\nWorkflows: {WORKFLOW_COUNT}\nRepos Managed: {REPO_COUNT}\nAutomation Level: {AUTO_PERCENT}%\n\n#ClaudeFlow #GitHubMaster'
+    },
+    unlockLevel: 6
+  }
+];
+
+// Combine all challenge categories
+export const allWikiChallenges: WikiChallenge[] = [
+  ...wikiChallenges, // Original challenges
+  ...agentMasteryChallenges,
+  ...mcpToolChallenges,
+  ...sparcChallenges,
+  ...neuralChallenges,
+  ...performanceChallenges,
+  ...integrationChallenges
+];
+
 // Challenge Management Functions
 export class WikiChallengeManager {
   private completedChallenges: Set<string> = new Set();
   private currentStreak: number = 0;
   private totalScore: number = 0;
+  private categoryProgress: Map<string, number> = new Map();
 
   getChallengesByType(type: WikiChallengeType): WikiChallenge[] {
-    return wikiChallenges.filter(challenge => challenge.type === type);
+    return allWikiChallenges.filter(challenge => challenge.type === type);
   }
 
   getChallengesByLevel(level: number): WikiChallenge[] {
-    return wikiChallenges.filter(challenge => challenge.unlockLevel <= level);
+    return allWikiChallenges.filter(challenge => challenge.unlockLevel <= level);
+  }
+
+  getChallengesByCategory(category: string): WikiChallenge[] {
+    return allWikiChallenges.filter(challenge => challenge.category === category);
   }
 
   getChallengeById(id: string): WikiChallenge | undefined {
-    return wikiChallenges.find(challenge => challenge.id === id);
+    return allWikiChallenges.find(challenge => challenge.id === id);
   }
 
   isUnlocked(challenge: WikiChallenge, currentLevel: number): boolean {
@@ -725,11 +1061,15 @@ export class WikiChallengeManager {
     };
   }
 
-  generateRandomChallenge(level: number, type?: WikiChallengeType): WikiChallenge {
+  generateRandomChallenge(level: number, type?: WikiChallengeType, category?: string): WikiChallenge {
     let availableChallenges = this.getChallengesByLevel(level);
     
     if (type) {
       availableChallenges = availableChallenges.filter(c => c.type === type);
+    }
+    
+    if (category) {
+      availableChallenges = availableChallenges.filter(c => c.category === category);
     }
 
     // Filter out completed challenges
@@ -744,6 +1084,38 @@ export class WikiChallengeManager {
 
     const randomIndex = Math.floor(Math.random() * availableChallenges.length);
     return availableChallenges[randomIndex];
+  }
+  
+  getRecommendedChallenges(level: number, interests: string[] = [], limit: number = 5): WikiChallenge[] {
+    const available = this.getChallengesByLevel(level).filter(
+      c => !this.completedChallenges.has(c.id)
+    );
+    
+    // Score challenges based on interests and difficulty appropriateness
+    const scored = available.map(challenge => {
+      let score = 0;
+      
+      // Interest match
+      if (interests.includes(challenge.category)) score += 3;
+      if (interests.includes(challenge.type)) score += 2;
+      
+      // Difficulty appropriateness
+      const difficultyScore = Math.max(0, 3 - Math.abs(challenge.difficulty - Math.min(5, Math.floor(level / 2))));
+      score += difficultyScore;
+      
+      // Variety bonus (prefer different types)
+      const completedInType = Array.from(this.completedChallenges)
+        .map(id => this.getChallengeById(id))
+        .filter(c => c && c.type === challenge.type).length;
+      score += Math.max(0, 2 - completedInType);
+      
+      return { challenge, score };
+    });
+    
+    return scored
+      .sort((a, b) => b.score - a.score)
+      .slice(0, limit)
+      .map(item => item.challenge);
   }
 
   private generateProceduralChallenge(level: number, type?: WikiChallengeType): WikiChallenge {
@@ -779,11 +1151,32 @@ export class WikiChallengeManager {
   getStats() {
     return {
       completed: this.completedChallenges.size,
-      totalChallenges: wikiChallenges.length,
+      totalChallenges: allWikiChallenges.length,
       currentStreak: this.currentStreak,
       totalScore: this.totalScore,
-      completionRate: (this.completedChallenges.size / wikiChallenges.length) * 100
+      completionRate: (this.completedChallenges.size / allWikiChallenges.length) * 100,
+      categoryBreakdown: this.getCategoryBreakdown()
     };
+  }
+
+  private getCategoryBreakdown(): Record<string, { completed: number; total: number }> {
+    const breakdown: Record<string, { completed: number; total: number }> = {};
+    
+    // Initialize categories
+    const categories = ['knowledge', 'practical', 'creative', 'speed', 'discovery'];
+    categories.forEach(cat => {
+      breakdown[cat] = { completed: 0, total: 0 };
+    });
+    
+    // Count challenges by category
+    allWikiChallenges.forEach(challenge => {
+      breakdown[challenge.category].total++;
+      if (this.completedChallenges.has(challenge.id)) {
+        breakdown[challenge.category].completed++;
+      }
+    });
+    
+    return breakdown;
   }
 
   exportProgress() {
@@ -835,4 +1228,4 @@ export class SocialShareManager {
   }
 }
 
-export default wikiChallenges;
+export default allWikiChallenges;

@@ -260,7 +260,7 @@ export const CommandSandbox: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Try: swarm init mesh\nOr: agent spawn researcher\nOr: task orchestrate \"Build a feature\""
+                placeholder={'Try: swarm init mesh\nOr: agent spawn researcher\nOr: task orchestrate "Build a feature"'}
                 className="w-full p-3 bg-gray-800 border border-gray-600 rounded-md text-white font-mono text-sm resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 rows={4}
                 disabled={isExecuting}

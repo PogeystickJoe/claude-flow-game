@@ -5,6 +5,7 @@ import { GameState, Player, Achievement, Level, SwarmState, GameEvent } from '..
 import { achievementsData } from '../systems/achievementSystem';
 import { levelsData } from '../systems/levelSystem';
 import { tutorialSteps } from '../systems/tutorialSystem';
+import { WikiTutorialModule, WikiTutorialChallenge } from '../systems/wikiTutorialSystem';
 
 interface GameStore extends GameState {
   // Actions
@@ -19,7 +20,7 @@ interface GameStore extends GameState {
   completeTutorial: () => void;
   showNotification: (notification: any) => void;
   dismissNotification: (id: string) => void;
-  setActivePanel: (panel: string) => void;
+  setActivePanel: (panel: 'game' | 'swarm' | 'sandbox' | 'achievements' | 'tutorial' | 'wiki' | 'settings') => void;
   updateSettings: (settings: Partial<any>) => void;
   emitEvent: (event: GameEvent) => void;
   
@@ -29,6 +30,16 @@ interface GameStore extends GameState {
   // Auto-Update System
   integrateNewFeatures: (features: string[]) => void;
   updateClaudeFlowVersion: (version: string) => void;
+  
+  // Wiki Tutorial System
+  startWikiModule: (moduleId: string) => void;
+  completeWikiModule: (moduleId: string, score: number) => void;
+  startWikiChallenge: (challengeId: string) => void;
+  completeWikiChallenge: (challengeId: string, score: number, timeSpent: number) => void;
+  updateWikiProgress: (moduleId: string, progress: number) => void;
+  getWikiModuleProgress: (moduleId: string) => number;
+  getCompletedWikiModules: () => string[];
+  getCompletedWikiChallenges: () => string[];
   
   // Computed Values
   getUnlockedAchievements: () => Achievement[];
@@ -92,6 +103,17 @@ const initialState: Omit<GameState, keyof GameStore> = {
     visualEffects: true,
     realTimeExecution: true,
     easterEggsEnabled: true,
+  },
+  // Wiki Tutorial System State
+  wikiProgress: {
+    completedModules: [],
+    completedChallenges: [],
+    moduleProgress: new Map<string, number>(),
+    challengeAttempts: new Map<string, number>(),
+    totalXpEarned: 0,
+    currentStreak: 0,
+    bestScores: new Map<string, number>(),
+    timeSpent: new Map<string, number>(),
   },
 };
 
@@ -399,6 +421,12 @@ export const useGameStore = create<GameStore>()(
               if (event.type === 'LEVEL_UP' && achievement.id === 'level-5' && event.payload.newLevel >= 5) {
                 get().unlockAchievement(achievement.id);
               }
+              if (event.type === 'WIKI_MODULE_COMPLETED' && achievement.id === 'wiki-first-module' && event.payload.totalCompleted >= 1) {
+                get().unlockAchievement(achievement.id);
+              }
+              if (event.type === 'WIKI_CHALLENGE_COMPLETED' && achievement.id === 'wiki-challenge-master' && event.payload.totalCompleted >= 25) {
+                get().unlockAchievement(achievement.id);
+              }
             }
           });
         },
@@ -436,6 +464,164 @@ export const useGameStore = create<GameStore>()(
         getCurrentLevelData: () => {
           const { currentLevel, levels } = get();
           return levels.find(l => l.id === currentLevel) || levels[0];
+        },
+
+        // Wiki Tutorial System Methods
+        startWikiModule: (moduleId) => {
+          set((state) => ({
+            wikiProgress: {
+              ...state.wikiProgress,
+              moduleProgress: new Map(state.wikiProgress.moduleProgress).set(moduleId, 0)
+            }
+          }));
+          
+          get().emitEvent({
+            type: 'WIKI_MODULE_STARTED',
+            payload: { moduleId },
+            timestamp: new Date()
+          });
+        },
+
+        completeWikiModule: (moduleId, score) => {
+          set((state) => {
+            const completedModules = [...state.wikiProgress.completedModules];
+            if (!completedModules.includes(moduleId)) {
+              completedModules.push(moduleId);
+            }
+            
+            const bestScores = new Map(state.wikiProgress.bestScores);
+            const currentBest = bestScores.get(moduleId) || 0;
+            if (score > currentBest) {
+              bestScores.set(moduleId, score);
+            }
+            
+            return {
+              wikiProgress: {
+                ...state.wikiProgress,
+                completedModules,
+                moduleProgress: new Map(state.wikiProgress.moduleProgress).set(moduleId, 100),
+                bestScores,
+                totalXpEarned: state.wikiProgress.totalXpEarned + (score * 10),
+                currentStreak: state.wikiProgress.currentStreak + 1
+              }
+            };
+          });
+          
+          // Award XP for module completion
+          get().addXp(score * 10, `wiki module: ${moduleId}`);
+          
+          // Check for module completion achievements
+          const completedCount = get().wikiProgress.completedModules.length;
+          if (completedCount === 1) {
+            get().unlockAchievement('wiki-first-module');
+          } else if (completedCount === 10) {
+            get().unlockAchievement('wiki-10-modules');
+          } else if (completedCount === 50) {
+            get().unlockAchievement('wiki-master');
+          }
+          
+          get().emitEvent({
+            type: 'WIKI_MODULE_COMPLETED',
+            payload: { moduleId, score, totalCompleted: completedCount },
+            timestamp: new Date()
+          });
+        },
+
+        startWikiChallenge: (challengeId) => {
+          set((state) => {
+            const challengeAttempts = new Map(state.wikiProgress.challengeAttempts);
+            const currentAttempts = challengeAttempts.get(challengeId) || 0;
+            challengeAttempts.set(challengeId, currentAttempts + 1);
+            
+            return {
+              wikiProgress: {
+                ...state.wikiProgress,
+                challengeAttempts
+              }
+            };
+          });
+          
+          get().emitEvent({
+            type: 'WIKI_CHALLENGE_STARTED',
+            payload: { challengeId },
+            timestamp: new Date()
+          });
+        },
+
+        completeWikiChallenge: (challengeId, score, timeSpent) => {
+          set((state) => {
+            const completedChallenges = [...state.wikiProgress.completedChallenges];
+            if (!completedChallenges.includes(challengeId)) {
+              completedChallenges.push(challengeId);
+            }
+            
+            const bestScores = new Map(state.wikiProgress.bestScores);
+            const currentBest = bestScores.get(challengeId) || 0;
+            if (score > currentBest) {
+              bestScores.set(challengeId, score);
+            }
+            
+            const timeSpentMap = new Map(state.wikiProgress.timeSpent);
+            const totalTime = (timeSpentMap.get(challengeId) || 0) + timeSpent;
+            timeSpentMap.set(challengeId, totalTime);
+            
+            return {
+              wikiProgress: {
+                ...state.wikiProgress,
+                completedChallenges,
+                bestScores,
+                timeSpent: timeSpentMap,
+                totalXpEarned: state.wikiProgress.totalXpEarned + (score * 5),
+                currentStreak: state.wikiProgress.currentStreak + 1
+              }
+            };
+          });
+          
+          // Award XP for challenge completion
+          get().addXp(score * 5, `wiki challenge: ${challengeId}`);
+          
+          // Check for challenge completion achievements
+          const completedCount = get().wikiProgress.completedChallenges.length;
+          if (completedCount === 1) {
+            get().unlockAchievement('wiki-first-challenge');
+          } else if (completedCount === 25) {
+            get().unlockAchievement('wiki-challenge-master');
+          }
+          
+          // Check for perfect scores
+          if (score >= 100) {
+            get().unlockAchievement('wiki-perfectionist');
+          }
+          
+          get().emitEvent({
+            type: 'WIKI_CHALLENGE_COMPLETED',
+            payload: { challengeId, score, timeSpent, totalCompleted: completedCount },
+            timestamp: new Date()
+          });
+        },
+
+        updateWikiProgress: (moduleId, progress) => {
+          set((state) => ({
+            wikiProgress: {
+              ...state.wikiProgress,
+              moduleProgress: new Map(state.wikiProgress.moduleProgress).set(moduleId, progress)
+            }
+          }));
+        },
+
+        getWikiModuleProgress: (moduleId) => {
+          const { wikiProgress } = get();
+          return wikiProgress.moduleProgress.get(moduleId) || 0;
+        },
+
+        getCompletedWikiModules: () => {
+          const { wikiProgress } = get();
+          return [...wikiProgress.completedModules];
+        },
+
+        getCompletedWikiChallenges: () => {
+          const { wikiProgress } = get();
+          return [...wikiProgress.completedChallenges];
         },
       }),
       {
