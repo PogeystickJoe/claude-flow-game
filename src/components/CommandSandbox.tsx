@@ -1,27 +1,28 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Terminal, Play, History, BookOpen, Zap, Award } from 'lucide-react';
+import { Terminal, Play, History, BookOpen, Zap, Award, HelpCircle } from 'lucide-react';
 import { useGameStore } from '../stores/gameStore';
 import { getTutorialCommands } from '../systems/tutorialSystem';
+import { CommandGuide } from './CommandGuide';
 
 // Command suggestions based on current level and unlocked tools
 const getCommandSuggestions = (level: number): string[] => {
   const basicCommands = [
-    'swarm_init({ topology: "mesh", maxAgents: 5 })',
-    'agent_spawn({ type: "researcher", capabilities: ["analysis"] })',
-    'swarm_status({ verbose: true })',
-    'task_orchestrate({ task: "Analyze performance", strategy: "adaptive" })'
+    'swarm init mesh',
+    'agent spawn researcher',
+    'swarm status',
+    'task orchestrate "Analyze performance"'
   ];
   
   const intermediateCommands = [
-    'memory_usage({ action: "store", key: "config", value: "data" })',
-    'neural_train({ pattern_type: "coordination", epochs: 20 })',
-    'performance_report({ format: "detailed" })'
+    'memory store "config" "data"',
+    'neural train coordination --epochs 20',
+    'performance report --detailed'
   ];
   
   const advancedCommands = [
-    'github_repo_analyze({ repo: "example/repo", analysis_type: "code_quality" })',
-    'workflow_create({ name: "auto-test", steps: ["lint", "test", "build"] })',
-    'daa_agent_create({ id: "autonomous", cognitivePattern: "adaptive" })'
+    'github analyze repo "example/repo" --type code_quality',
+    'workflow create "auto-test" --steps lint,test,build',
+    'daa agent create "autonomous" --pattern adaptive'
   ];
   
   let suggestions = [...basicCommands];
@@ -144,7 +145,7 @@ const CommandSuggestions: React.FC<{
 export const CommandSandbox: React.FC = () => {
   const [input, setInput] = useState('');
   const [isExecuting, setIsExecuting] = useState(false);
-  const [activeTab, setActiveTab] = useState<'execute' | 'history' | 'suggestions'>('execute');
+  const [activeTab, setActiveTab] = useState<'execute' | 'history' | 'suggestions' | 'guide'>('execute');
   const inputRef = useRef<HTMLTextAreaElement>(null);
   
   const { 
@@ -226,7 +227,8 @@ export const CommandSandbox: React.FC = () => {
           {[
             { id: 'execute', label: 'Execute', icon: Play },
             { id: 'history', label: 'History', icon: History },
-            { id: 'suggestions', label: 'Help', icon: BookOpen }
+            { id: 'suggestions', label: 'Examples', icon: BookOpen },
+            { id: 'guide', label: 'Guide', icon: HelpCircle }
           ].map((tab) => (
             <button
               key={tab.id}
@@ -258,10 +260,14 @@ export const CommandSandbox: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="e.g., swarm_init({ topology: 'mesh', maxAgents: 5 })"
+                placeholder="Try: swarm init mesh\nOr: agent spawn researcher\nOr: task orchestrate \"Build a feature\""
                 className="w-full p-3 bg-gray-800 border border-gray-600 rounded-md text-white font-mono text-sm resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                rows={3}
+                rows={4}
                 disabled={isExecuting}
+                spellCheck={false}
+                autoComplete="off"
+                autoCorrect="off"
+                autoCapitalize="off"
               />
               
               <div className="flex items-center justify-between mt-2">
@@ -337,6 +343,12 @@ export const CommandSandbox: React.FC = () => {
                 setActiveTab('execute');
               }}
             />
+          </div>
+        )}
+
+        {activeTab === 'guide' && (
+          <div className="flex-1 p-4 overflow-y-auto">
+            <CommandGuide />
           </div>
         )}
       </div>
