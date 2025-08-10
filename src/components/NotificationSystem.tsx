@@ -231,7 +231,7 @@ export const NotificationSystem: React.FC = () => {
   return (
     <>
       {/* CSS for progress bar animation */}
-      <style jsx="true">{`
+      <style>{`
         @keyframes shrink {
           from { width: 100%; }
           to { width: 0%; }
@@ -261,7 +261,7 @@ export const NotificationSystem: React.FC = () => {
       </div>
 
       {/* Global notification styles */}
-      <style jsx="true" global="true">{`
+      <style>{`
         .animate-in {
           animation-fill-mode: both;
         }
