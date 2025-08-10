@@ -3,6 +3,7 @@ import {
   User, 
   Trophy, 
   Book, 
+  BookOpen,
   Terminal, 
   Settings, 
   Zap,
