@@ -76,25 +76,9 @@ const App: React.FC = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        // First, check and update Claude Flow to latest version
-        await autoUpdater.initialize();
-        
-        // Wait for update to complete
-        await new Promise(resolve => {
-          const checkReady = () => {
-            autoUpdater.once('dialogue', (dialogue) => {
-              if (dialogue.phase === 'ready' || dialogue.phase === 'error') {
-                resolve(undefined);
-              } else {
-                setTimeout(checkReady, 100);
-              }
-            });
-          };
-          checkReady();
-          
-          // Timeout after 10 seconds
-          setTimeout(() => resolve(undefined), 10000);
-        });
+        // The autoUpdater is already initialized automatically in the module
+        // Just wait a moment for it to complete
+        await new Promise(resolve => setTimeout(resolve, 500));
         
         // Initialize the game store
         initializeGame();

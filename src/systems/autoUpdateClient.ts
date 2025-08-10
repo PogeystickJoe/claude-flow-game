@@ -76,6 +76,8 @@ export class ClaudeFlowAutoUpdateClient extends EventEmitter {
   private updateServerUrl = 'http://localhost:3456';
   private statusCheckInterval: number | null = null;
   private lastStatus: VersionInfo | null = null;
+  private hasInitialized = false;
+  private isChecking = false;
 
   constructor() {
     super();
@@ -85,21 +87,35 @@ export class ClaudeFlowAutoUpdateClient extends EventEmitter {
    * Initialize the auto-update client
    */
   async initialize(): Promise<void> {
-    console.log('🚀 Claude Flow Auto-Update Client Initialized');
+    // Only initialize once
+    if (this.hasInitialized) {
+      return;
+    }
+    this.hasInitialized = true;
     
-    // Check status immediately
+    console.log('🚀 Claude Flow Auto-Update Client Initialized (Once Only)');
+    
+    // Check status only once on startup
     await this.checkStatus();
     
-    // Then check periodically
-    this.statusCheckInterval = window.setInterval(() => {
-      this.checkStatus();
-    }, 30000); // Check every 30 seconds
+    // NO periodic checking - only on startup
+    // Users can manually refresh if they want to check for updates
   }
 
   /**
    * Check update status from server
    */
   async checkStatus(): Promise<VersionInfo> {
+    // Prevent concurrent checks
+    if (this.isChecking) {
+      return this.lastStatus || {
+        current: 'unknown',
+        latest: 'unknown',
+        hasUpdate: false
+      };
+    }
+    this.isChecking = true;
+    
     try {
       // Emit checking phase
       this.emitDialogue({
@@ -150,6 +166,7 @@ export class ClaudeFlowAutoUpdateClient extends EventEmitter {
         lastCheck: status.lastCheck
       };
 
+      this.isChecking = false;
       return this.lastStatus;
     } catch (error) {
       console.warn('Update server not available, reading local status...');
@@ -181,11 +198,15 @@ export class ClaudeFlowAutoUpdateClient extends EventEmitter {
         details: 'Running with cached version'
       });
 
+      this.isChecking = false;
       return {
         current: 'unknown',
         latest: 'unknown',
         hasUpdate: false
       };
+    } finally {
+      // Always reset the checking flag
+      this.isChecking = false;
     }
   }
 
@@ -294,15 +315,25 @@ export class ClaudeFlowAutoUpdateClient extends EventEmitter {
 // Singleton instance
 export const autoUpdater = new ClaudeFlowAutoUpdateClient();
 
-// Auto-initialize when loaded in browser
-if (typeof window !== 'undefined') {
+// Track if we've already set up initialization
+let initializationScheduled = false;
+
+// Auto-initialize when loaded in browser (ONCE ONLY)
+if (typeof window !== 'undefined' && !initializationScheduled) {
+  initializationScheduled = true;
+  
   // Wait for DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
-      autoUpdater.initialize().catch(console.error);
-    });
+      // Small delay to ensure everything is ready
+      setTimeout(() => {
+        autoUpdater.initialize().catch(console.error);
+      }, 100);
+    }, { once: true }); // Only run once
   } else {
-    // DOM already loaded
-    autoUpdater.initialize().catch(console.error);
+    // DOM already loaded - initialize after a small delay
+    setTimeout(() => {
+      autoUpdater.initialize().catch(console.error);
+    }, 100);
   }
 }

@@ -26,8 +26,8 @@ export const UpdateDialogue: React.FC = () => {
     autoUpdater.on('dialogue', handleDialogue);
     autoUpdater.on('featuresDiscovered', handleFeatures);
 
-    // Initialize auto-updater
-    autoUpdater.initialize();
+    // Don't initialize here - it's already auto-initialized in the module
+    // autoUpdater.initialize() is called automatically once on module load
 
     return () => {
       autoUpdater.off('dialogue', handleDialogue);
