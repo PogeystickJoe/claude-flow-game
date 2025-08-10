@@ -104,6 +104,29 @@ const WikiTutorialHub: React.FC<WikiTutorialHubProps> = ({
     });
   }, [modules, selectedCategory, selectedDifficulty, searchTerm]);
 
+  const getRequiredLevel = (difficulty: DifficultyLevel): number => {
+    switch (difficulty) {
+      case DifficultyLevel.BEGINNER: return 1;
+      case DifficultyLevel.INTERMEDIATE: return 5;
+      case DifficultyLevel.ADVANCED: return 15;
+      case DifficultyLevel.EXPERT: return 25;
+      default: return 1;
+    }
+  };
+
+  const getModuleProgress = (moduleId: string): number => {
+    // Calculate progress based on completed challenges and sections
+    const module = modules.find(m => m.id === moduleId);
+    if (!module) return 0;
+    
+    const totalChallenges = module.challenges.length;
+    const completedChallenges = module.challenges.filter(c => 
+      progressData.completedChallenges.includes(c.id)
+    ).length;
+    
+    return totalChallenges > 0 ? (completedChallenges / totalChallenges) * 100 : 0;
+  };
+
   // Generate learning path visualization
   const learningPath = useMemo(() => {
     const nodes: LearningPathNode[] = [];
@@ -134,29 +157,6 @@ const WikiTutorialHub: React.FC<WikiTutorialHubProps> = ({
 
     return nodes;
   }, [modules, progressData, player.level]);
-
-  const getRequiredLevel = (difficulty: DifficultyLevel): number => {
-    switch (difficulty) {
-      case DifficultyLevel.BEGINNER: return 1;
-      case DifficultyLevel.INTERMEDIATE: return 5;
-      case DifficultyLevel.ADVANCED: return 15;
-      case DifficultyLevel.EXPERT: return 25;
-      default: return 1;
-    }
-  };
-
-  const getModuleProgress = (moduleId: string): number => {
-    // Calculate progress based on completed challenges and sections
-    const module = modules.find(m => m.id === moduleId);
-    if (!module) return 0;
-    
-    const totalChallenges = module.challenges.length;
-    const completedChallenges = module.challenges.filter(c => 
-      progressData.completedChallenges.includes(c.id)
-    ).length;
-    
-    return totalChallenges > 0 ? (completedChallenges / totalChallenges) * 100 : 0;
-  };
 
   const getDifficultyColor = (difficulty: DifficultyLevel): string => {
     switch (difficulty) {
